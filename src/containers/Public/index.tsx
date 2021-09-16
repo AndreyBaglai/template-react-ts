@@ -5,6 +5,7 @@ import { Layout } from 'antd'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
 import Posts from './Posts'
+import Post from './Post'
 
 import styles from './styles.module.scss'
 
@@ -13,7 +14,11 @@ const Public = () => {
     <Layout className={styles.layout}>
       <Header />
       <Layout.Content className={styles.content}>
-        <Posts />
+        <Switch>
+          {/* <Route path="/login" component={Login} /> */}
+          <Route path="/post/:id" component={Post} />
+          <Route path="/" component={Posts} />
+        </Switch>
       </Layout.Content>
       <Footer />
     </Layout>
