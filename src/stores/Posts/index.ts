@@ -8,11 +8,13 @@ class Store {
   }
 
   @observable posts: any = []
+  @observable post: any = {}
+  @observable postsByUser: any = []
 
   @action
   async getPosts() {
     try {
-      const { data } = await api.get('posts');
+      const { data } = await api.get('posts')
       if (data) {
         this.posts = data;
       }  
@@ -22,11 +24,23 @@ class Store {
   }
 
   @action
-  async getPost(id = 1) {
+  async getPost(id = '1') {
     try {
-      const { data } = await api.get(`posts/${id}`);
+      const { data } = await api.get(`posts/${id}`)
       if (data) {
-        return data;
+        this.post = data
+      }  
+    } catch (error) {
+      console.log(error, 'error')
+    }
+  }
+
+  @action
+  async getPostsByUser(id = '1') {
+    try {
+      const { data } = await api.get(`posts?userId=${id}`)
+      if (data) {
+        this.postsByUser = data
       }  
     } catch (error) {
       console.log(error, 'error')
