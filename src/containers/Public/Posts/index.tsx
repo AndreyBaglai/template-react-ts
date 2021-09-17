@@ -1,26 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import { notification, Empty, Button, Input, Row, Col, message } from 'antd'
+import { notification, Empty, Button, Input, Row, Col, message, Pagination } from 'antd'
 
 import { useStore } from 'stores'
 import PostCard from './PostCard'
 
 import styles from './styles.module.scss'
+import { filter } from 'lodash'
+
+const MAX_POSTS_ON_PAGE = 8;
 
 const Posts = observer(() => {
   const postsStore = useStore().postsStore
-  const { posts } = postsStore
+  const { posts, postsOnPage } = postsStore
 
   const [searchText, setSearchText] = useState('')
-  const [filterPosts, setFilterPosts] = useState(posts)
+  const [filterPosts, setFilterPosts] = useState(postsOnPage)
+  const [currentPage, setCurrentPage] = useState(1)
+
+  // const loadImage = async () => {
+  //   const imagesUrl = await axios.get("https://picsum.photos/v2/list").then(res => res.data.map((item: any) => item.url))
+  //   postsStore.addImageLinkForPosts(imagesUrl)
+  // }
 
   useEffect(() => {
     postsStore.getPosts()
   }, [])
 
   useEffect(() => {
-    setFilterPosts(posts)
-  }, [posts])
+    postsStore.getPostsByPage(currentPage, MAX_POSTS_ON_PAGE)
+  }, [currentPage])
+
+  useEffect(() => {
+    setFilterPosts(postsOnPage)
+  }, [postsOnPage])
 
   // useEffect(() => {
   //   setFilterPosts(posts)
@@ -51,18 +64,24 @@ const Posts = observer(() => {
 
   const onChangeFilterPosts = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     if (searchText === '') {
-      setFilterPosts(posts)
-      setSearchText('')
+      setFilterPosts(postsOnPage)
     }
 
     setSearchText(target.value)
 
-    setFilterPosts(posts.filter((post: any) => {
-      const title = post.title.toLowerCase()
-      const body = post.body.toLowerCase()
+    setFilterPosts(
+      filterPosts.filter((post: any) => {
+        const title = post.title.toLowerCase()
+        const body = post.body.toLowerCase()
 
-      return title.indexOf(searchText.toLowerCase()) > -1 || body.indexOf(searchText.toLowerCase()) > -1
-    }))
+        return title.indexOf(searchText.toLowerCase()) > -1 || body.indexOf(searchText.toLowerCase()) > -1
+      })
+    )
+  }
+
+  const onChangePage = (page: number) => {
+    setCurrentPage(page)
+    postsStore.getPostsByPage(page, MAX_POSTS_ON_PAGE)
   }
 
   return (
@@ -85,6 +104,15 @@ const Posts = observer(() => {
           ))}
         </div>
       )}
+      <Pagination
+        className={styles.pagination}
+        current={currentPage}
+        defaultCurrent={currentPage}
+        pageSize={MAX_POSTS_ON_PAGE}
+        total={posts.length}
+        showSizeChanger={false}
+        onChange={onChangePage}
+      />
     </div>
   )
 })
