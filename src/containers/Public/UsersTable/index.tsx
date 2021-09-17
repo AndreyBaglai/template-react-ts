@@ -18,15 +18,17 @@ const UsersTable = observer(() => {
     // console.log(sorted)
   }
 
-  const columns = [
+  const columns: any = [
     {
       title: 'ID',
       dataIndex: 'id',
+      sortDirections: ['ascend', 'descend'],
       sorter: (a: any, b: any) => a.id - b.id,
     },
     {
       title: 'Name',
       dataIndex: 'name',
+      sortDirections: ['ascend', 'descend'],
       sorter: (a: any, b: any) => a.name.localeCompare(b.name),
     },
     {
