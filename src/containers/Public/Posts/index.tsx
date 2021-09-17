@@ -10,9 +10,22 @@ import styles from './styles.module.scss'
 const Posts = observer(() => {
   const postsStore = useStore().postsStore
   const { posts } = postsStore
+
+  const [searchText, setSearchText] = useState('')
+  const [filterPosts, setFilterPosts] = useState(posts)
+
   useEffect(() => {
     postsStore.getPosts()
   }, [])
+
+  useEffect(() => {
+    setFilterPosts(posts)
+  }, [posts])
+
+  // useEffect(() => {
+  //   setFilterPosts(posts)
+  //   console.log(filterPosts)
+  // }, [filterPosts])
   // loadPosts = async () => {
   //   let hideMessage = message.loading('Loading posts list...')
 
@@ -31,48 +44,49 @@ const Posts = observer(() => {
   // }
 
   // onClickLoad = () => {
-  //   this.setState({ search: '' }, () => {
+  //   this.setState({ searchText: '' }, () => {
   //     this.loadPosts()
   //   })
   // }
 
-  // filterPosts = () => {
-  //   let { search, posts } = this.state
-  //   if (search === '') return posts
+  const onChangeFilterPosts = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+    if (searchText === '') {
+      setFilterPosts(posts)
+      setSearchText('')
+    }
 
-  //   search = search.toLowerCase()
+    setSearchText(target.value)
 
-  //   return posts.filter(post => {
-  //     let title = post.title.toLowerCase()
-  //     let body = post.body.toLowerCase()
+    setFilterPosts(posts.filter((post: any) => {
+      const title = post.title.toLowerCase()
+      const body = post.body.toLowerCase()
 
-  //     return title.indexOf(search) > -1 || body.indexOf(search) > -1
-  //   })
-  // }
+      return title.indexOf(searchText.toLowerCase()) > -1 || body.indexOf(searchText.toLowerCase()) > -1
+    }))
+  }
 
-    return (
-      <div>
-        <Row>
-          <Col span={8} offset={8}>
-            <Input.Search
-              placeholder="Search by post name and description"
-              size="large"
-              onSearch={value => console.log(value)}
-              className={styles.search}
-              value=''
-              onChange={() => {}}
-            />
-          </Col>
-        </Row>
-        {posts.length > 0 && (
-          <div className={styles.posts}>
-            {posts.map((post: any) => (
-              <PostCard key={post.id} {...post} />
-            ))}
-          </div>)}
-       
-      </div>
-    ) 
+  return (
+    <div>
+      <Row>
+        <Col span={8} offset={8}>
+          <Input.Search
+            placeholder="Search by post name and description"
+            size="large"
+            onSearch={() => {}}
+            className={styles.search}
+            onChange={onChangeFilterPosts}
+          />
+        </Col>
+      </Row>
+      {filterPosts.length > 0 && (
+        <div className={styles.posts}>
+          {filterPosts.map((post: any) => (
+            <PostCard key={post.id} {...post} />
+          ))}
+        </div>
+      )}
+    </div>
+  )
 })
 
-export default Posts;
+export default Posts

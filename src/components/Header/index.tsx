@@ -1,15 +1,24 @@
 import React from 'react'
-import { Layout, Button, Avatar } from 'antd'
+import { Layout, Button, Avatar, message } from 'antd'
 import { Link } from 'react-router-dom'
+import { LoginOutlined } from '@ant-design/icons'
+
+import { useStore } from 'stores'
 
 import styles from './styles.module.scss'
 
 const Header = () => {
-  // const { user } = props
+  const usersStore = useStore().usersStore
+  const { user } = usersStore
+
+  const onClickSignOut = () => {
+    usersStore.unsetUser()
+    message.success('Goodbye! You sign out', 3)
+  }
 
   return (
     <Layout.Header>
-      {/* <div className={styles.header}>
+      <div className={styles.header}>
         {user.id ? (
           <div className={styles.user}>
             <Avatar icon="user" className={styles.avatar} />
@@ -25,21 +34,20 @@ const Header = () => {
               </span>
             )}
             ,&nbsp;
-            <span className={styles.signOut} onClick={usersActions.unsetUser}>
-              sign out
+            <span className={styles.signOut} onClick={onClickSignOut}>
+              Sign Out
             </span>
             .
           </div>
         ) : (
           <Link to="/login">
-            <Button type="primary" icon="login">
+            <Button type="primary" icon={<LoginOutlined />}>
               Sign In
             </Button>
-          </Link>
-        )}
-      </div> */}
+          </Link>)}
+      </div>
     </Layout.Header>
   )
 }
 
-export default Header;
+export default Header

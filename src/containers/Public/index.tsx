@@ -6,6 +6,7 @@ import Header from 'components/Header'
 import Footer from 'components/Footer'
 import Posts from './Posts'
 import Post from './Post'
+import Login from './Login'
 
 import styles from './styles.module.scss'
 
@@ -15,7 +16,7 @@ const Public = () => {
       <Header />
       <Layout.Content className={styles.content}>
         <Switch>
-          {/* <Route path="/login" component={Login} /> */}
+          <Route path="/login" component={Login} />
           <Route path="/post/:id" component={Post} />
           <Route path="/" component={Posts} />
         </Switch>

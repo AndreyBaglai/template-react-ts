@@ -3,12 +3,14 @@ import { configure, observable } from 'mobx'
 
 import postsStore from './Posts'
 import commentsStore from './Comments'
+import usersStore from './Users'
 
 configure({ enforceActions: 'observed' })
 
 class RootStore {
   @observable postsStore = postsStore
   @observable commentsStore = commentsStore
+  @observable usersStore = usersStore
 }
 
 const rootStore = new RootStore()

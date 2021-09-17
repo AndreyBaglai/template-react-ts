@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout } from 'antd'
 
-const Footer = () => <Layout.Footer>Application template</Layout.Footer>
+const Footer = () => <Layout.Footer>Application template footer</Layout.Footer>
 
-export default Footer;
+export default Footer
