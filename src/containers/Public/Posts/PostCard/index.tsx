@@ -2,11 +2,13 @@ import React from 'react'
 import { Card } from 'antd'
 import { Link } from 'react-router-dom'
 
+import styles from './styles.module.scss'
+
 const PostCard = (post: any) => {
   return (
     <Link to={`/post/${post.id}`}>
-      <Card key={post.id} hoverable cover={<img alt="example" src="https://picsum.photos/300/200/?random" />}>
-        <Card.Meta title={post.title} description={post.body} />
+      <Card className={styles.card} key={post.id} hoverable cover={<img alt="example" src="https://picsum.photos/300/200/?random" />}>
+        <Card.Meta title={post.title} description={post.body} className={styles.text} />
       </Card>
     </Link>
   )

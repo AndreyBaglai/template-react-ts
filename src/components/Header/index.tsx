@@ -1,11 +1,12 @@
 import React from 'react'
 import { Layout, Button, Avatar, message } from 'antd'
 import { Link } from 'react-router-dom'
-import { LoginOutlined } from '@ant-design/icons'
+import { LoginOutlined, OrderedListOutlined, TableOutlined } from '@ant-design/icons'
 
 import { useStore } from 'stores'
 
 import styles from './styles.module.scss'
+import classNames from 'classnames'
 
 const Header = () => {
   const usersStore = useStore().usersStore
@@ -40,11 +41,26 @@ const Header = () => {
             .
           </div>
         ) : (
-          <Link to="/login">
-            <Button type="primary" icon={<LoginOutlined />}>
-              Sign In
-            </Button>
-          </Link>)}
+          <>
+            <Link to="/login">
+              <Button type="primary" icon={<LoginOutlined />} className={styles.btn}>
+                Sign In
+              </Button>
+            </Link>
+
+            <Link to="/">
+              <Button type="primary" icon={<OrderedListOutlined />} className={styles.btn}>
+                Posts
+              </Button>
+            </Link>
+
+            <Link to="/table">
+              <Button type="primary" icon={<TableOutlined />} className={styles.btn}>
+                Users table
+              </Button>
+            </Link>
+          </>
+        )}
       </div>
     </Layout.Header>
   )

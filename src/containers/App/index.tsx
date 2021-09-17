@@ -25,7 +25,7 @@ const App = () => {
       </Router>
       {/* <AppLoading /> */}
     </>
-  );
+  )
 }
 
-export default App;
+export default App

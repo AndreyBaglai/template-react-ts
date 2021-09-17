@@ -7,6 +7,7 @@ import Footer from 'components/Footer'
 import Posts from './Posts'
 import Post from './Post'
 import Login from './Login'
+import UsersTable from './UsersTable'
 
 import styles from './styles.module.scss'
 
@@ -18,6 +19,7 @@ const Public = () => {
         <Switch>
           <Route path="/login" component={Login} />
           <Route path="/post/:id" component={Post} />
+          <Route path="/table" component={UsersTable} />
           <Route path="/" component={Posts} />
         </Switch>
       </Layout.Content>

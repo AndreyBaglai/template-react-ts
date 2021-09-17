@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { notification, Empty, Button, Input, Row, Col, message, Pagination } from 'antd'
+import classNames from 'classnames'
 
 import { useStore } from 'stores'
 import PostCard from './PostCard'
 
 import styles from './styles.module.scss'
-import { filter } from 'lodash'
 
-const MAX_POSTS_ON_PAGE = 8;
+const MAX_POSTS_ON_PAGE = 8
 
 const Posts = observer(() => {
   const postsStore = useStore().postsStore
@@ -25,11 +25,8 @@ const Posts = observer(() => {
 
   useEffect(() => {
     postsStore.getPosts()
-  }, [])
-
-  useEffect(() => {
     postsStore.getPostsByPage(currentPage, MAX_POSTS_ON_PAGE)
-  }, [currentPage])
+  }, [])
 
   useEffect(() => {
     setFilterPosts(postsOnPage)
@@ -97,13 +94,15 @@ const Posts = observer(() => {
           />
         </Col>
       </Row>
-      {filterPosts.length > 0 && (
-        <div className={styles.posts}>
-          {filterPosts.map((post: any) => (
-            <PostCard key={post.id} {...post} />
-          ))}
-        </div>
-      )}
+      <div>
+        {filterPosts.length > 0 && (
+          <div className={classNames(styles.posts)}>
+            {filterPosts.map((post: any) => (
+              <PostCard key={post.id} {...post} />
+            ))}
+          </div>
+        )}
+      </div>
       <Pagination
         className={styles.pagination}
         current={currentPage}
