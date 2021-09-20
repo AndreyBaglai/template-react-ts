@@ -36,7 +36,7 @@ const columns: any = [
     responsive: ['md'],
     showOnResponse: false,
     render: (website: any) => (
-      <a href={website} target="_blank" key={_.uniqueId()}>
+      <a href={website} target="_blank" rel="noreferrer" key={_.uniqueId()}>
         {website}
       </a>
     ),

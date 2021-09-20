@@ -1,5 +1,4 @@
 import { observable, action, makeObservable } from 'mobx'
-import _ from 'lodash'
 
 import { api } from 'config'
 
