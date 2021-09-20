@@ -1,15 +1,14 @@
 import React from 'react'
 import { Layout, Button, Avatar, message, Row, Col } from 'antd'
 import { Link } from 'react-router-dom'
-import { LoginOutlined, OrderedListOutlined, TableOutlined } from '@ant-design/icons'
+import { OrderedListOutlined, TableOutlined } from '@ant-design/icons'
 
 import { useStore } from 'stores'
 
 import styles from './styles.module.scss'
-import classNames from 'classnames'
 
 const Header = () => {
-  const usersStore = useStore().usersStore
+  const { usersStore } = useStore()
   const { user } = usersStore
 
   const onClickSignOut = () => {
@@ -42,14 +41,6 @@ const Header = () => {
           </div>
         ) : (
           <>
-            {/* <Col span={6} push={1}>
-              <Link to="/login">
-                <Button type="primary" icon={<LoginOutlined />} className={styles.btn}>
-                  Sign In
-                </Button>
-              </Link>
-            </Col> */}
-
             <Col span={11} push={1}>
               <Link to="/">
                 <Button type="primary" icon={<OrderedListOutlined />} className={styles.btn}>

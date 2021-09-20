@@ -37,19 +37,6 @@ class Store {
     }
   }
 
-  // @action
-  // async addImageLinkForPosts(imagesUrl: string[]) {
-  //     if (imagesUrl.length > 0) {
-  //       const updatePosts = this.posts.map((post: any) => {
-  //         const randomUrl = _.sample(imagesUrl)
-  //         post.image = randomUrl
-  //         return post
-  //       });
-
-  //       this.posts = updatePosts
-  //     } 
-  // }
-
   @action
   async getPost(id = '1') {
     try {

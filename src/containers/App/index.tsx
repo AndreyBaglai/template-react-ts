@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import { Router, Switch, Route } from 'react-router'
-import history from 'utils/history'
 
-import AppLoading from 'components/AppLoading'
+import history from 'utils/history'
+import { useStore } from 'stores'
+
 import PrivateRoute from 'components/PrivateRoute'
 import Public from '../Public'
 import Admin from '../Admin'
-import { useStore } from 'stores'
 
 const App = () => {
-  const usersStore = useStore().usersStore
+  const { usersStore } = useStore()
 
   useEffect(() => {
     usersStore.authUser()
@@ -23,7 +23,6 @@ const App = () => {
           <Route path="/" component={Public} />
         </Switch>
       </Router>
-      {/* <AppLoading /> */}
     </>
   )
 }

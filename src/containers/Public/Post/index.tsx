@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
-import { notification, message, PageHeader, Row, Col, Skeleton, Rate, Comment, Tooltip, List, Avatar } from 'antd'
+import React, { useEffect } from 'react'
+import { PageHeader, Row, Col, Rate, Comment, Tooltip, List, Avatar } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { Link, NavLink, useParams, useRouteMatch } from 'react-router-dom'
+import dayjs from 'dayjs'
+import { Link, useParams } from 'react-router-dom'
 
 import { useStore } from 'stores'
 import history from 'utils/history'
@@ -14,124 +15,36 @@ interface IParams {
 
 const Post = observer(() => {
   const params: IParams = useParams()
-  let { path, url } = useRouteMatch()
-  
-  const postsStore = useStore().postsStore
-  const commentsStore = useStore().commentsStore
+  const { postsStore, commentsStore } = useStore()
 
-  const { post, postsByUser, posts } = postsStore
+  const { post, posts } = postsStore
   const { comments } = commentsStore
 
   useEffect(() => {
     postsStore.getPost(params.id)
-    // postsStore.getPostsByUser(post.userId)
     commentsStore.getCommentsById(params.id)
+    postsStore.getPosts()
   }, [])
 
   const commentsList = comments.map((comment: any) => ({
     actions: [<span>Reply to</span>],
     author: comment.email,
-    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+    avatar: process.env.REACT_APP_AVATAR,
     content: <p>{comment.body}</p>,
-    // datetime: () => {
-    //   let title = moment()
-    //     .subtract(1, 'days')
-    //     .format('YYYY-MM-DD HH:mm:ss')
-    //   let fromNow = moment()
-    //     .subtract(1, 'days')
-    //     .fromNow()
+    datetime: () => {
+      let time = dayjs().format('DD/MM/YYYY HH:MM:SS')
 
-    // return (
-    //   <Tooltip title={title}>
-    //     <span>{fromNow}</span>
-    //   </Tooltip>
-    // )
+      return (
+        <Tooltip title="Time: ">
+          <span>{time}</span>
+        </Tooltip>
+      )
+    },
   }))
-  // const params = useParams()
-  // const [id, setId] = useState('')
-
-  // useEffect(() => {
-  //   setId(params.id)
-  // }, [])
-  // state = {
-  //   user: null,
-  //   comments: [],
-  //   posts: [],
-  //   post: null,
-  //   loading: true,
-  // }
-
-  // componentDidMount = () => {
-  //   this.loadPost()
-  // }
-
-  // componentDidUpdate = prevProps => {
-  //   if (prevProps.match.params.id !== this.props.match.params.id) this.loadPost()
-  // }
-
-  // loadPost = async () => {
-  //   this.setState({ loading: true })
-  //   let hideMessage = message.loading('Loading post...')
-
-  //   try {
-  //     let res = await Promise.all([
-  //       postsActions.getPost(this.props.match.params.id),
-  //       commentsActions.getCommentsByPost(this.props.match.params.id),
-  //     ])
-
-  //     let post = res[0]
-  //     let comments = res[1]
-
-  //     res = await Promise.all([usersActions.getUser(post.userId), postsActions.getPostsByUser(post.userId)])
-
-  //     let user = res[0]
-  //     let posts = res[1]
-
-  //     this.setState({ user, comments, posts, post })
-  //   } catch (e) {
-  //     notification.open({
-  //       message: 'Fetch post error',
-  //       description: e.message || e,
-  //       icon: '',
-  //     })
-  //   } finally {
-  //     this.setState({ loading: false }, () => {
-  //       hideMessage()
-  //     })
-  //   }
-  // }
-
-  // render = () => {
-  //   const { user, post, posts, comments, loading } = this.state
-
-  //   const commentsList = comments.map(comment => ({
-  //     actions: [<span>Reply to</span>],
-  //     author: comment.email,
-  //     avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-  //     content: <p>{comment.body}</p>,
-  //     datetime: () => {
-  //       let title = moment()
-  //         .subtract(1, 'days')
-  //         .format('YYYY-MM-DD HH:mm:ss')
-  //       let fromNow = moment()
-  //         .subtract(1, 'days')
-  //         .fromNow()
-
-  //       return (
-  //         <Tooltip title={title}>
-  //           <span>{fromNow}</span>
-  //         </Tooltip>
-  //       )
-  //     },
-  //   }))
 
   return (
     <div>
-      <PageHeader
-        onBack={() => history.push('/')}
-        title={post.title}
-        // subTitle={`By ${user.name} from ${user.company.name}`}
-      />
+      <PageHeader onBack={() => history.push('/')} title={post.title} />
       <Row className={styles.content}>
         <Col md={10} sm={20}>
           <p>{post.body}</p>
@@ -147,11 +60,12 @@ const Post = observer(() => {
                 author={item.author}
                 avatar={item.avatar}
                 content={item.content}
-                datetime={item.datetime}
+                datetime={item.datetime()}
               />
             )}
           />
         </Col>
+
         <Col md={10} sm={20} xs={24} className={styles.posts}>
           <List
             itemLayout="horizontal"
@@ -159,7 +73,7 @@ const Post = observer(() => {
             renderItem={(post: any) => (
               <List.Item>
                 <List.Item.Meta
-                  avatar={<Avatar src={`https://picsum.photos/300/200/?random=${post.id}`} />}
+                  avatar={<Avatar src={`${process.env.REACT_APP_PICTURE_API}?random=${post.id}`} />}
                   title={<Link to={`${post.id}`}>{post.title}</Link>}
                   description={post.body}
                 />

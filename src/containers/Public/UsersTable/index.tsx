@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import _ from 'lodash'
-
 import { Col, Input, Row, Table } from 'antd'
 
 import { useStore } from 'stores'
@@ -45,11 +44,10 @@ const columns: any = [
 ]
 
 const UsersTable = observer(() => {
-  const usersStore = useStore().usersStore
+  const { usersStore } = useStore()
   const { users } = usersStore
 
   const [dataSource, setDataSource] = useState(users)
-  const [searchText, setSearchText] = useState('')
 
   useEffect(() => {
     usersStore.getUsers()
@@ -59,15 +57,10 @@ const UsersTable = observer(() => {
     setDataSource(users)
   }, [users])
 
-  const onChangeTable = (sorted: any) => {
-    // console.log(sorted)
-  }
+  const onChangeTable = (sorted: any) => {}
 
   const onChangeFilterUsers = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const currValue = target.value.toLocaleLowerCase()
-
-    setSearchText(currValue)
-
     const filteredData = users.filter((user: any) => {
       const name = user.name.toLowerCase()
       return name.indexOf(currValue) > -1
@@ -90,13 +83,7 @@ const UsersTable = observer(() => {
         </Col>
       </Row>
 
-      <Table
-        size="small"
-        columns={columns}
-        dataSource={dataSource}
-        pagination={false}
-        onChange={onChangeTable}
-      ></Table>
+      <Table size="small" columns={columns} dataSource={dataSource} pagination={false} onChange={onChangeTable}></Table>
     </div>
   )
 })

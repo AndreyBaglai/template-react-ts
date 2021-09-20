@@ -28,4 +28,4 @@ const Public = () => {
   )
 }
 
-export default Public;
+export default Public

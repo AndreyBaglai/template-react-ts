@@ -1,4 +1,5 @@
 import React from 'react'
+
 import styles from './styles.module.scss'
 
 const AppLoading = () => (
@@ -7,4 +8,4 @@ const AppLoading = () => (
   </div>
 )
 
-export default AppLoading;
+export default AppLoading
