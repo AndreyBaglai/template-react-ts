@@ -85,7 +85,7 @@ const Posts = observer(() => {
   return (
     <div className="container">
       <Row>
-        <Col span={8} offset={8}>
+        <Col span={8} offset={2} sm={{offset: 8}}>
           <Input.Search
             placeholder="Search by post name and description"
             size="large"
@@ -96,15 +96,15 @@ const Posts = observer(() => {
         </Col>
       </Row>
 
-      <div>
-        {filterPosts.length > 0 && (
-          <div className={classNames(styles.posts)}>
-            {filterPosts.map((post: any) => (
+      {filterPosts.length > 0 && (
+        <Row gutter={[16, 16]} justify="center" align="top" className={classNames(styles.posts)}>
+          {filterPosts.map((post: any) => (
+            <Col span={5} xs={20} sm={11} md={6} key={post.id}>
               <PostCard key={post.id} {...post} />
-            ))}
-          </div>
-        )}
-      </div>
+            </Col>
+          ))}
+        </Row>
+      )}
 
       <Pagination
         className={styles.pagination}

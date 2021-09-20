@@ -26,7 +26,6 @@ const Post = observer(() => {
     postsStore.getPost(params.id)
     // postsStore.getPostsByUser(post.userId)
     commentsStore.getCommentsById(params.id)
-    console.log(comments)
   }, [])
 
   const commentsList = comments.map((comment: any) => ({
@@ -134,7 +133,7 @@ const Post = observer(() => {
         // subTitle={`By ${user.name} from ${user.company.name}`}
       />
       <Row className={styles.content}>
-        <Col span={10}>
+        <Col md={10} sm={20}>
           <p>{post.body}</p>
           <Rate value={4} />
 
@@ -153,7 +152,7 @@ const Post = observer(() => {
             )}
           />
         </Col>
-        <Col span={14} className={styles.posts}>
+        <Col md={10} sm={20} xs={24} className={styles.posts}>
           <List
             itemLayout="horizontal"
             dataSource={posts}

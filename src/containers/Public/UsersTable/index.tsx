@@ -24,14 +24,18 @@ const columns: any = [
   {
     title: 'User name',
     dataIndex: 'username',
+    responsive: ['md'],
   },
   {
     title: 'Email',
     dataIndex: 'email',
+    responsive: ['sm'],
   },
   {
     title: 'Website',
     dataIndex: 'website',
+    responsive: ['md'],
+    showOnResponse: false,
     render: (website: any) => (
       <a href={website} target="_blank" key={_.uniqueId()}>
         {website}
@@ -75,7 +79,7 @@ const UsersTable = observer(() => {
   return (
     <div>
       <Row>
-        <Col span={8} offset={8}>
+        <Col span={8} offset={2} sm={{ offset: 8 }}>
           <Input.Search
             placeholder="Search user by name"
             size="large"
@@ -86,7 +90,13 @@ const UsersTable = observer(() => {
         </Col>
       </Row>
 
-      <Table columns={columns} dataSource={dataSource} pagination={false} onChange={onChangeTable}></Table>
+      <Table
+        size="small"
+        columns={columns}
+        dataSource={dataSource}
+        pagination={false}
+        onChange={onChangeTable}
+      ></Table>
     </div>
   )
 })

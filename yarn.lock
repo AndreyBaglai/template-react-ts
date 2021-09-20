@@ -2473,6 +2473,13 @@
   "resolved" "https://registry.npmjs.org/ansi-styles/-/ansi-styles-5.2.0.tgz"
   "version" "5.2.0"
 
+"ant-responsive-table@^1.0.8":
+  "integrity" "sha512-QOKq9igCrTQ6L6Y0E3jMhEY9a9OF35yDyDXlaqZeK/bykdM9ehjISev2heKI/IP3VhEUFjq+AvqVFc/rnsq00w=="
+  "resolved" "https://registry.npmjs.org/ant-responsive-table/-/ant-responsive-table-1.0.8.tgz"
+  "version" "1.0.8"
+  dependencies:
+    "typestyle" "^2.0.4"
+
 "antd@^4.16.13":
   "integrity" "sha512-EMPD3fzKe7oayx9keD/GA1oKatcx7j5CGlkJj5eLS0/eEDDEkxVj3DFmKOPuHYt4BK7ltTzMFS+quSTmqUXPiw=="
   "resolved" "https://registry.npmjs.org/antd/-/antd-4.16.13.tgz"
@@ -4270,6 +4277,11 @@
   "resolved" "https://registry.npmjs.org/csstype/-/csstype-3.0.9.tgz"
   "version" "3.0.9"
 
+"csstype@2.6.9":
+  "integrity" "sha512-xz39Sb4+OaTsULgUERcCk+TJj8ylkL4aSVDQiX/ksxbELSqwkgt4d4RD7fovIdgJGSuNYqwZEiVjYY5l0ask+Q=="
+  "resolved" "https://registry.npmjs.org/csstype/-/csstype-2.6.9.tgz"
+  "version" "2.6.9"
+
 "cyclist@^1.0.1":
   "integrity" "sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk="
   "resolved" "https://registry.npmjs.org/cyclist/-/cyclist-1.0.1.tgz"
@@ -5600,6 +5612,11 @@
   "version" "0.2.1"
   dependencies:
     "map-cache" "^0.2.2"
+
+"free-style@3.1.0":
+  "integrity" "sha512-vJujYSIyT30iDoaoeigNAxX4yB1RUrh+N2ZMhIElMr3BvCuGXOw7XNJMEEJkDUeamK2Rnb/IKFGKRKlTWIGRWA=="
+  "resolved" "https://registry.npmjs.org/free-style/-/free-style-3.1.0.tgz"
+  "version" "3.1.0"
 
 "fresh@0.5.2":
   "integrity" "sha1-PYyt2Q2XZWn6g1qx+OSyOhBWBac="
@@ -12293,6 +12310,14 @@
   "integrity" "sha512-4xfscpisVgqqDfPaJo5vkd+Qd/ItkoagnHpufr+i2QCHBsNYp+G7UAoyFl8aPtx879u38wPV65rZ8qbGZijalA=="
   "resolved" "https://registry.npmjs.org/typescript/-/typescript-4.4.3.tgz"
   "version" "4.4.3"
+
+"typestyle@^2.0.4":
+  "integrity" "sha512-6uCYPdG4xWLeEcl9O0GtNFnNGhami+irKiLsXSuvWHC/aTS7wdj49WeikWAKN+xHN3b1hm+9v0svwwgSBhCsNA=="
+  "resolved" "https://registry.npmjs.org/typestyle/-/typestyle-2.1.0.tgz"
+  "version" "2.1.0"
+  dependencies:
+    "csstype" "2.6.9"
+    "free-style" "3.1.0"
 
 "unicode-canonical-property-names-ecmascript@^1.0.4":
   "integrity" "sha512-jDrNnXWHd4oHiTZnx/ZG7gtUTVp+gCcTTKr8L0HjlwphROEW3+Him+IpvC+xcJEFegapiMZyZe02CyuOnRmbnQ=="

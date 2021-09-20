@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Button, Avatar, message } from 'antd'
+import { Layout, Button, Avatar, message, Row, Col } from 'antd'
 import { Link } from 'react-router-dom'
 import { LoginOutlined, OrderedListOutlined, TableOutlined } from '@ant-design/icons'
 
@@ -19,7 +19,7 @@ const Header = () => {
 
   return (
     <Layout.Header>
-      <div className={styles.header}>
+      <Row className={styles.header} justify="center" align="top">
         {user.id ? (
           <div className={styles.user}>
             <Avatar icon="user" className={styles.avatar} />
@@ -42,26 +42,32 @@ const Header = () => {
           </div>
         ) : (
           <>
-            <Link to="/login">
-              <Button type="primary" icon={<LoginOutlined />} className={styles.btn}>
-                Sign In
-              </Button>
-            </Link>
+            {/* <Col span={6} push={1}>
+              <Link to="/login">
+                <Button type="primary" icon={<LoginOutlined />} className={styles.btn}>
+                  Sign In
+                </Button>
+              </Link>
+            </Col> */}
 
-            <Link to="/">
-              <Button type="primary" icon={<OrderedListOutlined />} className={styles.btn}>
-                Posts
-              </Button>
-            </Link>
+            <Col span={11} push={1}>
+              <Link to="/">
+                <Button type="primary" icon={<OrderedListOutlined />} className={styles.btn}>
+                  Posts
+                </Button>
+              </Link>
+            </Col>
 
-            <Link to="/table">
-              <Button type="primary" icon={<TableOutlined />} className={styles.btn}>
-                Users table
-              </Button>
-            </Link>
+            <Col span={11} push={1}>
+              <Link to="/table">
+                <Button type="primary" icon={<TableOutlined />} className={styles.btn}>
+                  Users table
+                </Button>
+              </Link>
+            </Col>
           </>
         )}
-      </div>
+      </Row>
     </Layout.Header>
   )
 }
