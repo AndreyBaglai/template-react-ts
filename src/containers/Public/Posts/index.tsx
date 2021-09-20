@@ -60,18 +60,19 @@ const Posts = observer(() => {
   // }
 
   const onChangeFilterPosts = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
-    if (searchText === '') {
+    const currValue = target.value.toLocaleLowerCase()
+    if (currValue === '') {
       setFilterPosts(postsOnPage)
     }
 
-    setSearchText(target.value)
+    setSearchText(currValue)
 
     setFilterPosts(
       postsOnPage.filter((post: any) => {
         const title = post.title.toLowerCase()
         const body = post.body.toLowerCase()
 
-        return title.indexOf(searchText.toLowerCase()) > -1 || body.indexOf(searchText.toLowerCase()) > -1
+        return title.indexOf(currValue) > -1 || body.indexOf(currValue) > -1
       })
     )
   }
@@ -82,7 +83,7 @@ const Posts = observer(() => {
   }
 
   return (
-    <div className="row">
+    <div className="container">
       <Row>
         <Col span={8} offset={8}>
           <Input.Search
@@ -97,7 +98,7 @@ const Posts = observer(() => {
 
       <div>
         {filterPosts.length > 0 && (
-          <div className={classNames('row', styles.posts)}>
+          <div className={classNames(styles.posts)}>
             {filterPosts.map((post: any) => (
               <PostCard key={post.id} {...post} />
             ))}
