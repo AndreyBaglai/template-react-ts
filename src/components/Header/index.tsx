@@ -18,7 +18,7 @@ const Header = () => {
 
   return (
     <Layout.Header>
-      <Row className={styles.header} justify="center" align="top">
+      <Row className={styles.header} justify="space-between" align="top">
         {user.id ? (
           <div className={styles.user}>
             <Avatar icon="user" className={styles.avatar} />
@@ -41,7 +41,7 @@ const Header = () => {
           </div>
         ) : (
           <>
-            <Col span={11} push={1}>
+            <Col span={12} className={styles.wrapBtn}>
               <Link to="/">
                 <Button type="primary" icon={<OrderedListOutlined />} className={styles.btn}>
                   Posts
@@ -49,7 +49,7 @@ const Header = () => {
               </Link>
             </Col>
 
-            <Col span={11} push={1}>
+            <Col span={12} className={styles.wrapBtn}>
               <Link to="/table">
                 <Button type="primary" icon={<TableOutlined />} className={styles.btn}>
                   Users table

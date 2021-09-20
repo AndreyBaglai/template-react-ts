@@ -1,6 +1,11 @@
-.search {
-  margin-bottom: 50px !important;
-  min-width: 200px;
+.wrapSearch {
+  display: flex !important;
+  justify-content: center;
+
+  .search {
+    margin-bottom: 50px !important;
+    min-width: 200px;
+  }
 }
 
 .info {

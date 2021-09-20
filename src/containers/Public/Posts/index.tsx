@@ -48,8 +48,8 @@ const Posts = observer(() => {
 
   return (
     <div className="container">
-      <Row>
-        <Col span={8} offset={2} sm={{ offset: 8 }}>
+      <Row justify="center">
+        <Col span={5} xs={20} sm={11} md={6} className={styles.wrapSearch}>
           <Input.Search
             placeholder="Search by post name and description"
             size="large"

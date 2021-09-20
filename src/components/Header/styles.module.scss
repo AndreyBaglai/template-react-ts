@@ -26,10 +26,16 @@
   }
 }
 
-.btn {
-  font-size: 14px;
+.wrapBtn {
+  display: flex !important;
+  justify-content: center;
 
-  svg {
-    margin-bottom: 6px;
+  .btn {
+    font-size: 14px;
+  
+    svg {
+      margin-bottom: 6px;
+    }
   }
 }
+
