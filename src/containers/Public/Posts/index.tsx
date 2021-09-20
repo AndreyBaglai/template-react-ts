@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import { Input, Row, Col, Pagination } from 'antd'
+import { Input, Row, Col, Pagination, Typography } from 'antd'
 import classNames from 'classnames'
 
 import { MAX_POSTS_ON_PAGE } from 'config'
@@ -37,7 +37,7 @@ const Posts = observer(() => {
 
       return title.indexOf(currValue) > -1 || body.indexOf(currValue) > -1
     })
-    
+
     setFilterPosts(filteredPosts)
   }
 
@@ -60,7 +60,7 @@ const Posts = observer(() => {
         </Col>
       </Row>
 
-      {filterPosts.length > 0 && (
+      {filterPosts.length > 0 ? (
         <Row gutter={[16, 16]} justify="center" align="top" className={classNames(styles.posts)}>
           {filterPosts.map((post: any) => (
             <Col span={5} xs={20} sm={11} md={6} key={post.id}>
@@ -68,7 +68,7 @@ const Posts = observer(() => {
             </Col>
           ))}
         </Row>
-      )}
+      ) : <Typography.Text type="secondary" className={styles.info}>No searching posts...</Typography.Text>}
 
       <Pagination
         className={styles.pagination}

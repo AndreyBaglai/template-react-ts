@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route } from 'react-router'
+import { Switch, Route, withRouter } from 'react-router'
 import { Layout } from 'antd'
 
 import Header from 'components/Header'
@@ -18,7 +18,7 @@ const Public = () => {
       <Layout.Content className={styles.content}>
         <Switch>
           <Route path="/login" component={Login} />
-          <Route path="/post/:id" component={Post} />
+          <Route path="/post/:id" component={withRouter(Post)} />
           <Route path="/table" component={UsersTable} />
           <Route path="/" component={Posts} />
         </Switch>
