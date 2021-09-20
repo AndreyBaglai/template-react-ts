@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { notification, message, PageHeader, Row, Col, Skeleton, Rate, Comment, Tooltip, List, Avatar } from 'antd'
 import { observer } from 'mobx-react-lite'
-import { Link, useParams } from 'react-router-dom'
+import { Link, NavLink, useParams, useRouteMatch } from 'react-router-dom'
 
 import { useStore } from 'stores'
 import history from 'utils/history'
@@ -14,6 +14,8 @@ interface IParams {
 
 const Post = observer(() => {
   const params: IParams = useParams()
+  let { path, url } = useRouteMatch()
+  
   const postsStore = useStore().postsStore
   const commentsStore = useStore().commentsStore
 
@@ -158,8 +160,8 @@ const Post = observer(() => {
             renderItem={(post: any) => (
               <List.Item>
                 <List.Item.Meta
-                  avatar={<Avatar src="https://picsum.photos/300/200/?random" />}
-                  title={<Link to={`/post/${post.id}`}>{post.title}</Link>}
+                  avatar={<Avatar src={`https://picsum.photos/300/200/?random=${post.id}`} />}
+                  title={<Link to={`${post.id}`}>{post.title}</Link>}
                   description={post.body}
                 />
               </List.Item>

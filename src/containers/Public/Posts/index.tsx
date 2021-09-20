@@ -67,7 +67,7 @@ const Posts = observer(() => {
     setSearchText(target.value)
 
     setFilterPosts(
-      filterPosts.filter((post: any) => {
+      postsOnPage.filter((post: any) => {
         const title = post.title.toLowerCase()
         const body = post.body.toLowerCase()
 
@@ -82,7 +82,7 @@ const Posts = observer(() => {
   }
 
   return (
-    <div>
+    <div className="row">
       <Row>
         <Col span={8} offset={8}>
           <Input.Search
@@ -94,15 +94,17 @@ const Posts = observer(() => {
           />
         </Col>
       </Row>
+
       <div>
         {filterPosts.length > 0 && (
-          <div className={classNames(styles.posts)}>
+          <div className={classNames('row', styles.posts)}>
             {filterPosts.map((post: any) => (
               <PostCard key={post.id} {...post} />
             ))}
           </div>
         )}
       </div>
+
       <Pagination
         className={styles.pagination}
         current={currentPage}
