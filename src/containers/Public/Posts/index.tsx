@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import { Input, Row, Col, Pagination, Typography } from 'antd'
+import { Input, Row, Col, Typography } from 'antd'
 
+import PaginationPosts from './Pagination'
 import { useStore } from 'stores'
 import PostCard from './PostCard'
 import { IPost } from 'types/Post'
@@ -31,12 +32,9 @@ const Posts = observer(() => {
       setFilterPosts(postsOnPage)
     }
 
-    const filteredPosts = postsOnPage.filter((post: IPost) => {
-      const title = post.title.toLowerCase()
-      const body = post.body.toLowerCase()
-
-      return title.includes(currValue) || body.includes(currValue)
-    })
+    const filteredPosts: IPost[] = postsOnPage.filter(
+      ({ title, body }: IPost) => title.toLowerCase().includes(currValue) || body.toLowerCase().includes(currValue)
+    )
 
     setFilterPosts(filteredPosts)
   }
@@ -69,17 +67,13 @@ const Posts = observer(() => {
             </Col>
           ))}
         </Row>
-      ) : <Typography.Text type="secondary" className={styles.info}>No searching posts...</Typography.Text>}
+      ) : (
+        <Typography.Text type="secondary" className={styles.info}>
+          No searching posts...
+        </Typography.Text>
+      )}
 
-      <Pagination
-        className={styles.pagination}
-        current={currentPage}
-        defaultCurrent={currentPage}
-        pageSize={MAX_POSTS_ON_PAGE}
-        total={posts.length}
-        showSizeChanger={false}
-        onChange={onChangePage}
-      />
+      <PaginationPosts onChangePage={onChangePage} page={currentPage} maxPosts={posts.length} />
     </div>
   )
 })
