@@ -10,7 +10,7 @@ import styles from './styles.module.scss'
 const Login = () => {
   const { usersStore } = useStore()
   const { users } = usersStore
-  
+
   const [userId, setUserId] = useState(1)
 
   useEffect(() => {
@@ -60,6 +60,7 @@ const Login = () => {
             </Select.Option>
           ))}
         </Select>
+        
         <Button type="primary" size="large" loading={false} onClick={onClickSignIn} block>
           Sign In
         </Button>
