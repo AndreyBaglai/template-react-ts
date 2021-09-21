@@ -13,7 +13,7 @@ const Posts = observer(() => {
   const { postsStore } = useStore()
   const { posts, postsOnPage } = postsStore
 
-  const [filterPosts, setFilterPosts] = useState(postsOnPage)
+  const [filterPosts, setFilterPosts] = useState<IPost[]>(postsOnPage)
   const [currentPage, setCurrentPage] = useState(1)
 
   useEffect(() => {

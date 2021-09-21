@@ -26,11 +26,11 @@ const Post = observer(() => {
     postsStore.getPosts()
   }, [])
 
-  const commentsList = comments.map((comment: IComment) => ({
+  const commentsList: ICommentList[] = comments.map(({ email, body }: IComment) => ({
     actions: [<span>Reply to</span>],
-    author: comment.email,
+    author: email,
     avatar: process.env.REACT_APP_AVATAR,
-    content: <p>{comment.body}</p>,
+    content: <p>{body}</p>,
     datetime: () => {
       let time = dayjs().format('DD/MM/YYYY HH:MM:SS')
 
@@ -56,14 +56,8 @@ const Post = observer(() => {
                 header={`${commentsList.length} comments`}
                 itemLayout="horizontal"
                 dataSource={commentsList}
-                renderItem={(item: ICommentList) => (
-                  <Comment
-                    actions={item.actions}
-                    author={item.author}
-                    avatar={item.avatar}
-                    content={item.content}
-                    datetime={item.datetime()}
-                  />
+                renderItem={({ actions, author, avatar, content, datetime }: ICommentList) => (
+                  <Comment actions={actions} author={author} avatar={avatar} content={content} datetime={datetime()} />
                 )}
               />
             </Col>
@@ -72,12 +66,12 @@ const Post = observer(() => {
               <List
                 itemLayout="horizontal"
                 dataSource={posts}
-                renderItem={(post: IPost) => (
+                renderItem={({ id, title, body }: IPost) => (
                   <List.Item>
                     <List.Item.Meta
-                      avatar={<Avatar src={`${process.env.REACT_APP_PICTURE_API}?random=${post.id}`} />}
-                      title={<Link to={`${post.id}`}>{post.title}</Link>}
-                      description={post.body}
+                      avatar={<Avatar src={`${process.env.REACT_APP_PICTURE_API}?random=${id}`} />}
+                      title={<Link to={`${id}`}>{title}</Link>}
+                      description={body}
                     />
                   </List.Item>
                 )}

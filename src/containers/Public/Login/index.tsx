@@ -10,6 +10,7 @@ import styles from './styles.module.scss'
 const Login = () => {
   const { usersStore } = useStore()
   const { users } = usersStore
+  
   const [userId, setUserId] = useState(1)
 
   useEffect(() => {
@@ -53,9 +54,9 @@ const Login = () => {
           optionFilterProp="children"
           onChange={onChangeUser}
         >
-          {users.map((user: IUser) => (
-            <Select.Option key={user.id} value={user.id}>
-              {user.name}
+          {users.map(({ id, name }: IUser) => (
+            <Select.Option key={id} value={id}>
+              {name}
             </Select.Option>
           ))}
         </Select>

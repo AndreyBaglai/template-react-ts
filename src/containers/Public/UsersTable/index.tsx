@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Col, Input, Row, Table } from 'antd'
-import { ColumnsType } from 'antd/es/table';
-import { v4 as uuidv4 } from 'uuid';
+import { ColumnsType } from 'antd/es/table'
+import { v4 as uuidv4 } from 'uuid'
 
 import { useStore } from 'stores'
-import { IUser } from 'types/User';
+import { IUser } from 'types/User'
 
 import styles from './styles.module.scss'
 
@@ -48,7 +48,7 @@ const UsersTable = observer(() => {
   const { usersStore } = useStore()
   const { users } = usersStore
 
-  const [dataSource, setDataSource] = useState(users)
+  const [dataSource, setDataSource] = useState<IUser[]>(users)
 
   useEffect(() => {
     usersStore.getUsers()
@@ -60,10 +60,11 @@ const UsersTable = observer(() => {
 
   const onChangeFilterUsers = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const currValue = target.value.toLocaleLowerCase()
-    const filteredData = users.filter((user: IUser) => {
-      const name = user.name.toLowerCase()
-      return name.includes(currValue)
-    })
+
+    const filteredData = users.filter(
+      ({ name, username }: IUser) =>
+        name.toLowerCase().includes(currValue) || username.toLowerCase().includes(currValue)
+    )
 
     setDataSource(filteredData)
   }
