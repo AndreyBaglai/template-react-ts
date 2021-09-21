@@ -1,13 +1,15 @@
 import { observable, action, makeObservable } from 'mobx'
 
+import { IComment } from 'types/Comment'
 import { api } from 'config'
+
 
 class Store {
   constructor() {
     makeObservable(this)
   }
 
-  @observable comments: any = []
+  @observable comments: IComment[] = []
 
   @action
   async getCommentsById(id = '1') {

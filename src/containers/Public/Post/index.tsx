@@ -6,12 +6,12 @@ import { Link, useParams } from 'react-router-dom'
 
 import { useStore } from 'stores'
 import history from 'utils/history'
+import { IComment } from 'types/Comment'
+import { IPost } from 'types/Post'
+import { IParams } from 'types/Params'
+import { ICommentList } from 'types/CommentList'
 
 import styles from './styles.module.scss'
-
-interface IParams {
-  id: string
-}
 
 const Post = observer(() => {
   const params: IParams = useParams()
@@ -26,7 +26,7 @@ const Post = observer(() => {
     postsStore.getPosts()
   }, [])
 
-  const commentsList = comments.map((comment: any) => ({
+  const commentsList = comments.map((comment: IComment) => ({
     actions: [<span>Reply to</span>],
     author: comment.email,
     avatar: process.env.REACT_APP_AVATAR,
@@ -44,44 +44,48 @@ const Post = observer(() => {
 
   return (
     <div>
-      <PageHeader onBack={() => history.push('/')} title={post.title} />
-      <Row className={styles.content}>
-        <Col md={10} sm={20}>
-          <p>{post.body}</p>
-          <Rate value={4} />
+      {post && (
+        <>
+          <PageHeader onBack={() => history.push('/')} title={post.title} />
+          <Row className={styles.content}>
+            <Col md={10} sm={20}>
+              <p>{post.body}</p>
+              <Rate value={4} />
 
-          <List
-            header={`${commentsList.length} comments`}
-            itemLayout="horizontal"
-            dataSource={commentsList}
-            renderItem={(item: any) => (
-              <Comment
-                actions={item.actions}
-                author={item.author}
-                avatar={item.avatar}
-                content={item.content}
-                datetime={item.datetime()}
+              <List
+                header={`${commentsList.length} comments`}
+                itemLayout="horizontal"
+                dataSource={commentsList}
+                renderItem={(item: ICommentList) => (
+                  <Comment
+                    actions={item.actions}
+                    author={item.author}
+                    avatar={item.avatar}
+                    content={item.content}
+                    datetime={item.datetime()}
+                  />
+                )}
               />
-            )}
-          />
-        </Col>
+            </Col>
 
-        <Col md={10} sm={20} xs={24} className={styles.posts}>
-          <List
-            itemLayout="horizontal"
-            dataSource={posts}
-            renderItem={(post: any) => (
-              <List.Item>
-                <List.Item.Meta
-                  avatar={<Avatar src={`${process.env.REACT_APP_PICTURE_API}?random=${post.id}`} />}
-                  title={<Link to={`${post.id}`}>{post.title}</Link>}
-                  description={post.body}
-                />
-              </List.Item>
-            )}
-          />
-        </Col>
-      </Row>
+            <Col md={10} sm={20} xs={24} className={styles.posts}>
+              <List
+                itemLayout="horizontal"
+                dataSource={posts}
+                renderItem={(post: IPost) => (
+                  <List.Item>
+                    <List.Item.Meta
+                      avatar={<Avatar src={`${process.env.REACT_APP_PICTURE_API}?random=${post.id}`} />}
+                      title={<Link to={`${post.id}`}>{post.title}</Link>}
+                      description={post.body}
+                    />
+                  </List.Item>
+                )}
+              />
+            </Col>
+          </Row>
+        </>
+      )}
     </div>
   )
 })

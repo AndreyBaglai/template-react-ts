@@ -1,5 +1,6 @@
 import { observable, action, makeObservable } from 'mobx'
 
+import { IPost } from 'types/Post'
 import { api } from 'config'
 
 class Store {
@@ -7,10 +8,10 @@ class Store {
     makeObservable(this)
   }
 
-  @observable posts: any = []
-  @observable post: any = {}
-  @observable postsOnPage: any = []
-  @observable postsByUser: any = []
+  @observable posts: IPost[] = []
+  @observable post: IPost | null = null
+  @observable postsOnPage: IPost[] = []
+  @observable postsByUser: IPost[] = []
 
   @action
   async getPostsByPage(page: number, limit: number) {
@@ -18,7 +19,7 @@ class Store {
       const { data } = await api.get(`posts?_page=${page}&_limit=${limit}`)
       if (data) {
         this.postsOnPage = data
-      }  
+      }
     } catch (error) {
       console.log(error, 'error')
     }
@@ -30,7 +31,7 @@ class Store {
       const { data } = await api.get('posts')
       if (data) {
         this.posts = data
-      }  
+      }
     } catch (error) {
       console.log(error, 'error')
     }
@@ -42,7 +43,7 @@ class Store {
       const { data } = await api.get(`posts/${id}`)
       if (data) {
         this.post = data
-      }  
+      }
     } catch (error) {
       console.log(error, 'error')
     }
@@ -54,7 +55,7 @@ class Store {
       const { data } = await api.get(`posts?userId=${id}`)
       if (data) {
         this.postsByUser = data
-      }  
+      }
     } catch (error) {
       console.log(error, 'error')
     }

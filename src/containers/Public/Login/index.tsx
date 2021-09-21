@@ -3,19 +3,20 @@ import { Select, Button, Alert, message, notification } from 'antd'
 
 import history from 'utils/history'
 import { useStore } from 'stores'
+import { IUser } from 'types/User'
 
 import styles from './styles.module.scss'
 
 const Login = () => {
   const { usersStore } = useStore()
   const { users } = usersStore
-  const [userId, setUserId] = useState(null)
+  const [userId, setUserId] = useState(1)
 
   useEffect(() => {
     usersStore.getUsers()
   }, [])
 
-  const onChangeUser = (userId: any) => {
+  const onChangeUser = (userId: number) => {
     setUserId(userId)
   }
 
@@ -24,17 +25,19 @@ const Login = () => {
       return message.info(`Please, select user`, 3)
     }
 
-    const user = users.find((user: any) => user.id === userId)
+    const user = users.find((user: IUser) => user.id === userId) || null
 
     usersStore.setUser(user)
     history.replace('/')
 
-    message.success(`Perfect! You signed in as ${user.name}`, 3)
-    if (user.id === 1) {
-      notification.open({
-        message: 'Admin section',
-        description: 'You have admin permissions. You can go to admin section using link "Admin section" in header',
-      })
+    if (user) {
+      message.success(`Perfect! You signed in as ${user.name}`, 3)
+      if (user.id === 1) {
+        notification.open({
+          message: 'Admin section',
+          description: 'You have admin permissions. You can go to admin section using link "Admin section" in header',
+        })
+      }
     }
   }
 
@@ -50,7 +53,7 @@ const Login = () => {
           optionFilterProp="children"
           onChange={onChangeUser}
         >
-          {users.map((user: any) => (
+          {users.map((user: IUser) => (
             <Select.Option key={user.id} value={user.id}>
               {user.name}
             </Select.Option>

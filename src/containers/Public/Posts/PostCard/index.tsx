@@ -1,15 +1,16 @@
 import React from 'react'
 import { Card } from 'antd'
 import { Link } from 'react-router-dom'
-import classNames from 'classnames'
+
+import { IPost } from 'types/Post'
 
 import styles from './styles.module.scss'
 
-const PostCard = (post: any) => {
+const PostCard = (post: IPost) => {
   return (
     <Link to={`/post/${post.id}`}>
       <Card
-        className={classNames(styles.card)}
+        className={styles.card}
         key={post.id}
         hoverable
         cover={

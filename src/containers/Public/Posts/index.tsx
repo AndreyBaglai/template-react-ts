@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { Input, Row, Col, Pagination, Typography } from 'antd'
-import classNames from 'classnames'
 
-import { MAX_POSTS_ON_PAGE } from 'config'
 import { useStore } from 'stores'
 import PostCard from './PostCard'
+import { IPost } from 'types/Post'
+import { MAX_POSTS_ON_PAGE } from 'utils/const'
 
 import styles from './styles.module.scss'
 
@@ -31,11 +31,11 @@ const Posts = observer(() => {
       setFilterPosts(postsOnPage)
     }
 
-    const filteredPosts = postsOnPage.filter((post: any) => {
+    const filteredPosts = postsOnPage.filter((post: IPost) => {
       const title = post.title.toLowerCase()
       const body = post.body.toLowerCase()
 
-      return title.indexOf(currValue) > -1 || body.indexOf(currValue) > -1
+      return title.includes(currValue) || body.includes(currValue)
     })
 
     setFilterPosts(filteredPosts)
@@ -44,6 +44,7 @@ const Posts = observer(() => {
   const onChangePage = (page: number) => {
     setCurrentPage(page)
     postsStore.getPostsByPage(page, MAX_POSTS_ON_PAGE)
+    window.scrollTo(0, 0)
   }
 
   return (
@@ -61,8 +62,8 @@ const Posts = observer(() => {
       </Row>
 
       {filterPosts.length > 0 ? (
-        <Row gutter={[16, 16]} justify="center" align="top" className={classNames(styles.posts)}>
-          {filterPosts.map((post: any) => (
+        <Row gutter={[16, 16]} justify="center" align="top" className={styles.posts}>
+          {filterPosts.map((post: IPost) => (
             <Col span={5} xs={20} sm={11} md={6} key={post.id}>
               <PostCard key={post.id} {...post} />
             </Col>

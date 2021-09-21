@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <Layout.Header>
       <Row className={styles.header} justify="space-between" align="top">
-        {user.id ? (
+        {user ? (
           <div className={styles.user}>
             <Avatar icon="user" className={styles.avatar} />
             <span>{user.name}</span>

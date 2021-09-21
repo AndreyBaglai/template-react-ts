@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import _ from 'lodash'
 import { Col, Input, Row, Table } from 'antd'
+import { ColumnsType } from 'antd/es/table';
+import { v4 as uuidv4 } from 'uuid';
 
 import { useStore } from 'stores'
+import { IUser } from 'types/User';
 
 import styles from './styles.module.scss'
 
-const columns: any = [
+const columns: ColumnsType<IUser> = [
   {
     title: 'ID',
     dataIndex: 'id',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a: any, b: any) => a.id - b.id,
+    sorter: (a: IUser, b: IUser) => a.id - b.id,
   },
   {
-    title: 'Name',
+    title: 'Full name',
     dataIndex: 'name',
     sortDirections: ['ascend', 'descend'],
-    sorter: (a: any, b: any) => a.name.localeCompare(b.name),
+    sorter: (a: IUser, b: IUser) => a.name.localeCompare(b.name),
   },
   {
     title: 'User name',
@@ -34,9 +36,8 @@ const columns: any = [
     title: 'Website',
     dataIndex: 'website',
     responsive: ['md'],
-    showOnResponse: false,
-    render: (website: any) => (
-      <a href={website} target="_blank" rel="noreferrer" key={_.uniqueId()}>
+    render: (website: string) => (
+      <a href={`http://${website}`} target="_blank" rel="noreferrer" key={uuidv4()}>
         {website}
       </a>
     ),
@@ -57,13 +58,11 @@ const UsersTable = observer(() => {
     setDataSource(users)
   }, [users])
 
-  const onChangeTable = (sorted: any) => {}
-
   const onChangeFilterUsers = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     const currValue = target.value.toLocaleLowerCase()
-    const filteredData = users.filter((user: any) => {
+    const filteredData = users.filter((user: IUser) => {
       const name = user.name.toLowerCase()
-      return name.indexOf(currValue) > -1
+      return name.includes(currValue)
     })
 
     setDataSource(filteredData)
@@ -83,7 +82,7 @@ const UsersTable = observer(() => {
         </Col>
       </Row>
 
-      <Table size="small" columns={columns} dataSource={dataSource} pagination={false} onChange={onChangeTable}></Table>
+      <Table size="small" columns={columns} dataSource={dataSource} pagination={false}></Table>
     </div>
   )
 })

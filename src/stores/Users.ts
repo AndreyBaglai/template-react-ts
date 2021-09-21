@@ -1,6 +1,7 @@
 import { observable, action, makeObservable } from 'mobx'
 import history from 'utils/history'
 
+import { IUser } from 'types/User'
 import { api } from 'config'
 
 class Store {
@@ -8,15 +9,15 @@ class Store {
     makeObservable(this)
   }
 
-  @observable users: any = []
-  @observable user: any = {}
+  @observable users: IUser[] = []
+  @observable user: IUser | null = null
 
   @action
   async getUsers() {
     try {
       const { data } = await api.get('users')
       if (data) {
-        this.users = data.map((user: any) => ({ ...user, key: user.id }))
+        this.users = data.map((user: IUser) => ({ ...user, key: user.id }))
       }
     } catch (error) {
       console.log(error, 'error')
@@ -36,14 +37,14 @@ class Store {
   }
 
   @action
-  setUser(user: any) {
+  setUser(user: IUser | null) {
     this.user = user
     localStorage.setItem('user', JSON.stringify(user))
   }
 
   @action
   unsetUser() {
-    this.user = {}
+    this.user = null
     localStorage.removeItem('user')
     history.replace('/')
   }
