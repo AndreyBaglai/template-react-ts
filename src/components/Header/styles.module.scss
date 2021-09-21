@@ -1,7 +1,7 @@
 .header {
   display: flex;
 
-  > span{
+  > span {
     flex: 1;
     font-size: 20px;
     font-weight: bold;
@@ -11,31 +11,4 @@
       text-decoration: none;
     }
   }
-
-  .user {
-    color: #fff;
-    
-    .avatar {
-      margin-right: 10px;
-    }
-
-    .signOut {
-      text-decoration: underline;
-      cursor: pointer;
-    }
-  }
 }
-
-.wrapBtn {
-  display: flex !important;
-  justify-content: center;
-
-  .btn {
-    font-size: 14px;
-  
-    svg {
-      margin-bottom: 6px;
-    }
-  }
-}
-

@@ -11,7 +11,7 @@ interface IProps {
   maxPosts: number
 }
 
-const PaginationPosts = ({ page, onChangePage, maxPosts }: IProps) => {
+const PostsPagination: React.FC<IProps> = ({ page, onChangePage, maxPosts }) => {
   return (
     <Pagination
       className={styles.pagination}
@@ -25,4 +25,4 @@ const PaginationPosts = ({ page, onChangePage, maxPosts }: IProps) => {
   )
 }
 
-export default PaginationPosts
+export default PostsPagination

@@ -1,0 +1,12 @@
+.wrapBtn {
+  display: flex !important;
+  justify-content: center;
+
+  .btn {
+    font-size: 14px;
+
+    svg {
+      margin-bottom: 6px;
+    }
+  }
+}

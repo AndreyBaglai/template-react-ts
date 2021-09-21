@@ -6,6 +6,10 @@ import { useStore } from 'stores'
 
 import Public from '../Public'
 
+history.listen(_ => {
+  window.scrollTo(0, 0)  
+})
+
 const App = () => {
   const { usersStore } = useStore()
 

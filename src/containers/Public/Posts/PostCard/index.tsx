@@ -6,18 +6,20 @@ import { IPost } from 'types/Post'
 
 import styles from './styles.module.scss'
 
-const PostCard = ({ id, title, body }: IPost) => {
+interface IProps {
+  post: IPost
+}
+
+const PostCard: React.FC<IProps> = ({ post }) => {
   return (
-    <Link to={`/post/${id}`}>
+    <Link to={`/post/${post.id}`}>
       <Card
         className={styles.card}
-        key={id}
+        key={post.id}
         hoverable
-        cover={
-          <img className={styles.img} alt="example" src={`${process.env.REACT_APP_PICTURE_API}?random=${id}`} />
-        }
+        cover={<img className={styles.img} alt="example" src={`${process.env.REACT_APP_PICTURE_API}?random=${post.id}`} />}
       >
-        <Card.Meta title={title} description={body} className={styles.text} />
+        <Card.Meta title={post.title} description={post.body} className={styles.text} />
       </Card>
     </Link>
   )

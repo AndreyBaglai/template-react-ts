@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react'
-import { PageHeader, Row, Col, Rate, Comment, Tooltip, List, Avatar } from 'antd'
+import { PageHeader, Row, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import dayjs from 'dayjs'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import { useStore } from 'stores'
 import history from 'utils/history'
 import { IComment } from 'types/Comment'
-import { IPost } from 'types/Post'
 import { IParams } from 'types/Params'
 import { ICommentList } from 'types/CommentList'
+import CommentsList from './CommentsList'
+import PostsList from './PostsList'
 
 import styles from './styles.module.scss'
 
@@ -47,36 +48,10 @@ const Post = observer(() => {
       {post && (
         <>
           <PageHeader onBack={() => history.push('/')} title={post.title} />
+
           <Row className={styles.content}>
-            <Col md={10} sm={20}>
-              <p>{post.body}</p>
-              <Rate value={4} />
-
-              <List
-                header={`${commentsList.length} comments`}
-                itemLayout="horizontal"
-                dataSource={commentsList}
-                renderItem={({ actions, author, avatar, content, datetime }: ICommentList) => (
-                  <Comment actions={actions} author={author} avatar={avatar} content={content} datetime={datetime()} />
-                )}
-              />
-            </Col>
-
-            <Col md={10} sm={20} xs={24} className={styles.posts}>
-              <List
-                itemLayout="horizontal"
-                dataSource={posts}
-                renderItem={({ id, title, body }: IPost) => (
-                  <List.Item>
-                    <List.Item.Meta
-                      avatar={<Avatar src={`${process.env.REACT_APP_PICTURE_API}?random=${id}`} />}
-                      title={<Link to={`${id}`}>{title}</Link>}
-                      description={body}
-                    />
-                  </List.Item>
-                )}
-              />
-            </Col>
+            <CommentsList post={post} comments={commentsList} />
+            <PostsList posts={posts} />
           </Row>
         </>
       )}

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import { Input, Row, Col, Typography } from 'antd'
+import { Row, Col, Typography } from 'antd'
 
-import PaginationPosts from './Pagination'
+import PostsPagination from './PostsPagination'
 import { useStore } from 'stores'
 import PostCard from './PostCard'
 import { IPost } from 'types/Post'
 import { MAX_POSTS_ON_PAGE } from 'utils/const'
+import InputSearch from 'components/InputSearch'
 
 import styles from './styles.module.scss'
 
@@ -47,23 +48,13 @@ const Posts = observer(() => {
 
   return (
     <div className="container">
-      <Row justify="center">
-        <Col span={5} xs={20} sm={11} md={6} className={styles.wrapSearch}>
-          <Input.Search
-            placeholder="Search by post name and description"
-            size="large"
-            onSearch={() => {}}
-            className={styles.search}
-            onChange={onChangeFilterPosts}
-          />
-        </Col>
-      </Row>
+      <InputSearch  placeholder="Search by post name and description" onChange={onChangeFilterPosts}/>
 
       {filterPosts.length > 0 ? (
         <Row gutter={[16, 16]} justify="center" align="top" className={styles.posts}>
           {filterPosts.map((post: IPost) => (
             <Col span={5} xs={20} sm={11} md={6} key={post.id}>
-              <PostCard key={post.id} {...post} />
+              <PostCard key={post.id} post={post} />
             </Col>
           ))}
         </Row>
@@ -73,7 +64,7 @@ const Posts = observer(() => {
         </Typography.Text>
       )}
 
-      <PaginationPosts onChangePage={onChangePage} page={currentPage} maxPosts={posts.length} />
+      <PostsPagination onChangePage={onChangePage} page={currentPage} maxPosts={posts.length} />
     </div>
   )
 })

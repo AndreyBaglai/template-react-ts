@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
-import { Col, Input, Row, Table } from 'antd'
+import { Table } from 'antd'
 import { ColumnsType } from 'antd/es/table'
 import { v4 as uuidv4 } from 'uuid'
 
+import InputSearch from 'components/InputSearch'
 import { useStore } from 'stores'
 import { IUser } from 'types/User'
-
-import styles from './styles.module.scss'
 
 const columns: ColumnsType<IUser> = [
   {
@@ -71,18 +70,7 @@ const UsersTable = observer(() => {
 
   return (
     <div>
-      <Row justify="center">
-        <Col span={5} xs={20} sm={11} md={6} className={styles.wrapSearch}>
-          <Input.Search
-            placeholder="Search user by name"
-            size="large"
-            onSearch={() => {}}
-            className={styles.search}
-            onChange={onChangeFilterUsers}
-          />
-        </Col>
-      </Row>
-
+      <InputSearch placeholder="Search user by name" onChange={onChangeFilterUsers} />
       <Table size="small" columns={columns} dataSource={dataSource} pagination={false}></Table>
     </div>
   )
