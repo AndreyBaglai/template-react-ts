@@ -64,7 +64,7 @@ const Posts = observer(() => {
         </Typography.Text>
       )}
 
-      <PostsPagination onChangePage={onChangePage} page={currentPage} maxPosts={posts.length} />
+      <PostsPagination onChangePage={onChangePage} page={currentPage} total={posts.length} />
     </div>
   )
 })

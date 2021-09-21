@@ -8,17 +8,16 @@ import styles from './styles.module.scss'
 interface IProps {
   page: number
   onChangePage: (val: number) => void
-  maxPosts: number
+  total: number
 }
 
-const PostsPagination: React.FC<IProps> = ({ page, onChangePage, maxPosts }) => {
+const PostsPagination: React.FC<IProps> = ({ page, onChangePage, total }) => {
   return (
     <Pagination
       className={styles.pagination}
       current={page}
-      defaultCurrent={page}
       pageSize={MAX_POSTS_ON_PAGE}
-      total={maxPosts}
+      total={total}
       showSizeChanger={false}
       onChange={onChangePage}
     />
