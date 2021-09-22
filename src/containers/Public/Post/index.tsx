@@ -15,6 +15,7 @@ import PostsList from './PostsList'
 import styles from './styles.module.scss'
 
 const Post = observer(() => {
+  console.log('Render: Post component');
   const params: IParams = useParams()
   const { postsStore, commentsStore } = useStore()
 

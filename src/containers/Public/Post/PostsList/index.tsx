@@ -11,6 +11,7 @@ interface IProps {
 }
 
 const PostsList: React.FC<IProps> = ({ posts }) => {
+  console.log('Render: PostsList component');
   return (
     <Col md={10} sm={20} xs={24} className={styles.posts}>
       <List
@@ -30,4 +31,4 @@ const PostsList: React.FC<IProps> = ({ posts }) => {
   )
 }
 
-export default PostsList
+export default React.memo(PostsList)
