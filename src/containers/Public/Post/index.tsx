@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { PageHeader, Row, Tooltip } from 'antd'
 import { observer } from 'mobx-react-lite'
 import dayjs from 'dayjs'
@@ -15,7 +15,6 @@ import PostsList from './PostsList'
 import styles from './styles.module.scss'
 
 const Post = observer(() => {
-  console.log('Render: Post component');
   const params: IParams = useParams()
   const { postsStore, commentsStore } = useStore()
 
@@ -28,7 +27,7 @@ const Post = observer(() => {
     postsStore.getPosts()
   }, [])
 
-  const commentsList: ICommentList[] = comments.map(({ email, body }: IComment) => ({
+  const commentsList: ICommentList[] = useMemo(() => comments.map(({ email, body }: IComment) => ({
     actions: [<span>Reply to</span>],
     author: email,
     avatar: process.env.REACT_APP_AVATAR,
@@ -42,7 +41,7 @@ const Post = observer(() => {
         </Tooltip>
       )
     },
-  }))
+  })), [comments])
 
   return (
     <div>

@@ -20,6 +20,7 @@ const PostsPagination: React.FC<IProps> = ({ page, onChangePage, total }) => {
       total={total}
       showSizeChanger={false}
       onChange={onChangePage}
+      simple={true}
     />
   )
 }

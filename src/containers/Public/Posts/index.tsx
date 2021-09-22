@@ -43,12 +43,16 @@ const Posts = observer(() => {
   const onChangePage = (page: number) => {
     setCurrentPage(page)
     postsStore.getPostsByPage(page, MAX_POSTS_ON_PAGE)
-    window.scrollTo(0, 0)
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    })
   }
 
   return (
     <div className="container">
-      <InputSearch  placeholder="Search by post name and description" onChange={onChangeFilterPosts}/>
+      <InputSearch placeholder="Search by post name and description" onChange={onChangeFilterPosts} />
 
       {filterPosts.length > 0 ? (
         <Row gutter={[16, 16]} justify="center" align="top" className={styles.posts}>
