@@ -25,4 +25,4 @@ const PostCard: React.FC<IProps> = ({ post }) => {
   )
 }
 
-export default PostCard
+export default React.memo(PostCard)
