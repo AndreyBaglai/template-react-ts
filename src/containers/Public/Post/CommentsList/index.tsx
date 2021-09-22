@@ -27,4 +27,4 @@ const CommentsList: React.FC<IProps> = ({ post, comments }) => {
   )
 }
 
-export default CommentsList
+export default React.memo(CommentsList)
